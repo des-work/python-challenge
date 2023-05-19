@@ -1,8 +1,11 @@
 import csv
 import os
+import pandas as pd
+
 
 csvpath = os.path.join('..','Resources','budget_data.csv')
 
+budget_df =  pd.read_csv(csvpath, low_memory=False)
 
 total_months = 0
 total_profit_loss = 0
@@ -59,10 +62,23 @@ with open(csvpath) as file:
     print(f"Average Change: ${average_change:.2f}")
     print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
     print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
-            
+
+    analysis_data = {
+    "Total Months" : [total_months],
+    "Total": [total_profit_loss],
+    "Average Change": [average_change],
+    "Greatest Increase in Profits": [f"{greatest_increase[0]} (${greatest_increase[1]})"],
+    "Greatest Decrease in Profits": [f"{greatest_decrease[0]} (${greatest_decrease[1]})"]
+    }
 
 
+    analysis_df = pd.DataFrame(analysis_data)
 
+    print("Financial Analysis")
+    print("-------------------------")
+    print(analysis_df.to_string(index=False))
+
+    analysis_df.to_csv("Analysis/financial_analysis.csv")
 
 
 
