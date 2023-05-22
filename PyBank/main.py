@@ -1,6 +1,6 @@
 import csv
 import os
-import pandas as pd
+
 
 
 CSVPATH = os.path.join('Resources','budget_data.csv')
